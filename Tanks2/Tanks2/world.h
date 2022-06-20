@@ -15,6 +15,6 @@ private:
     void rendering();
 
 public:
-    World(std::vector<IDrawable*> idraw);
+    World();
     void startLoop();
 };

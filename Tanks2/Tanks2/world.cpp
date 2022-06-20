@@ -2,9 +2,8 @@
 #include <thread>
 #include "world.h"
 
-World::World(std::vector<IDrawable*> idraw) : iDrawable(idraw)
-{  
-}
+World::World()
+{}
 
 void World::calculate(sf::Event& event)
 {
@@ -38,6 +37,16 @@ void World::startLoop()
     sf::RenderWindow window(sf::VideoMode(600, 600), "TestProgram");
     sf::Clock clock;
 
+    Text* text = new Text;
+    Tank* tank = new Tank;
+    Bullet* bullet = new Bullet;
+    Brick* brick = new Brick;
+
+    iDrawable.push_back(text);
+    iDrawable.push_back(tank);
+    iDrawable.push_back(bullet);
+    iDrawable.push_back(brick);
+
     while (window.isOpen())
     {
         clock.restart();
@@ -61,4 +70,9 @@ void World::startLoop()
         if (event.type == sf::Event::Closed)
             window.close();
     }
+
+    delete text;
+    delete tank;
+    delete bullet;
+    delete brick;
 }
