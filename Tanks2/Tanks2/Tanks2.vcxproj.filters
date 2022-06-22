@@ -41,20 +41,20 @@
     <ClCompile Include="Tanks2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tank.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="text.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="brick.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="bullet.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="brick.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="tank.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="text.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="world.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

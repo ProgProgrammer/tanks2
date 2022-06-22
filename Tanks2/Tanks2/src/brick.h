@@ -4,6 +4,6 @@
 class Brick : public IDrawable
 {
 public:
-    virtual void calculate() override;
-    virtual void draw() override;
+    void calculate() override;
+    void draw() override;
 };

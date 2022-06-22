@@ -16,5 +16,6 @@ private:
 
 public:
     World();
+    ~World();
     void startLoop();
 };
