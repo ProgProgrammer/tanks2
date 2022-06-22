@@ -10,7 +10,7 @@
 class World
 {
 private:
-    std::vector<IDrawable*> iDrawable;
+    std::vector<IDrawable*> objects;
     void calculate(sf::Event & event);
     void rendering();
 

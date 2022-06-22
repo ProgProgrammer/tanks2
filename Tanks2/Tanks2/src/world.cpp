@@ -6,9 +6,9 @@ World::World() {}
 
 World::~World()
 {
-    for (int i = 0; i < iDrawable.size(); i++)
+    for (int i = 0; i < objects.size(); i++)
     {
-        delete iDrawable[i];
+        delete objects[i];
     }
 }
 
@@ -16,7 +16,7 @@ void World::calculate(sf::Event& event)
 {
     if (event.type == sf::Event::KeyPressed)
     {
-        for (auto objectPtr : iDrawable)
+        for (auto objectPtr : objects)
         {
             objectPtr->calculate(event);
         }
@@ -25,9 +25,9 @@ void World::calculate(sf::Event& event)
 
 void World::rendering()
 {
-    for (int i = 0; i < iDrawable.size(); i++)
+    for (int i = 0; i < objects.size(); i++)
     {
-        iDrawable[i]->draw();
+        objects[i]->draw();
     }
 }
 
@@ -41,10 +41,10 @@ void World::startLoop()
     Bullet* bullet = new Bullet;
     Brick* brick = new Brick;
 
-    iDrawable.push_back(text);
-    iDrawable.push_back(tank);
-    iDrawable.push_back(bullet);
-    iDrawable.push_back(brick);
+    objects.push_back(text);
+    objects.push_back(tank);
+    objects.push_back(bullet);
+    objects.push_back(brick);
 
     while (window.isOpen())
     {
