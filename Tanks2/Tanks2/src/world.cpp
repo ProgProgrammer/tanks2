@@ -6,9 +6,9 @@ World::World() {}
 
 World::~World()
 {
-    for (int i = 0; i < objects.size(); i++)
+    for (auto objectPtr : objects)
     {
-        delete objects[i];
+        delete objectPtr;
     }
 }
 
@@ -25,9 +25,9 @@ void World::calculate(sf::Event& event)
 
 void World::rendering()
 {
-    for (int i = 0; i < objects.size(); i++)
+    for (auto objectPtr : objects)
     {
-        objects[i]->draw();
+        objectPtr->draw();
     }
 }
 
@@ -48,7 +48,8 @@ void World::startLoop()
 
     while (window.isOpen())
     {
-        clock.restart();
+        using namespace std::chrono_literals;
+        auto start = std::chrono::high_resolution_clock::now();
 
         sf::Event event;
         window.pollEvent(event);
@@ -56,15 +57,9 @@ void World::startLoop()
         calculate(event);
         rendering();
 
-        sf::Time t = clock.getElapsedTime();
-
-        sf::Time pause = sf::milliseconds(40);
-        pause = pause - t;
-
-        int num = 1000 / pause.asMilliseconds();
-
-        using namespace std::chrono_literals;
-        std::this_thread::sleep_for(1000ms / num);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double, std::milli> elapsed = end - start;
+        std::this_thread::sleep_for(40ms - elapsed);
 
         if (event.type == sf::Event::Closed)
             window.close();
