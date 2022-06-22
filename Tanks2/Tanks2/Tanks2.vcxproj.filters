@@ -15,22 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="world.h">
+    <ClInclude Include="src\brick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="iDrawable.h">
+    <ClInclude Include="src\bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="text.h">
+    <ClInclude Include="src\iDrawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tank.h">
+    <ClInclude Include="src\tank.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bullet.h">
+    <ClInclude Include="src\text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="brick.h">
+    <ClInclude Include="src\world.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,22 +38,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Tanks2.cpp">
+    <ClCompile Include="src\brick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="brick.cpp">
+    <ClCompile Include="src\bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bullet.cpp">
+    <ClCompile Include="src\tank.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tank.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="text.cpp">
+    <ClCompile Include="src\text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="world.cpp">
+    <ClCompile Include="src\world.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

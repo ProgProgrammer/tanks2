@@ -4,6 +4,6 @@
 class Text : public IDrawable
 {
 public:
-    void calculate() override;
+    void calculate(sf::Event& event) override;
     void draw() override;
 };

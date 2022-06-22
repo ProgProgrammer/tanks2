@@ -143,7 +143,7 @@
     <ClCompile Include="src\brick.cpp" />
     <ClCompile Include="src\bullet.cpp" />
     <ClCompile Include="src\tank.cpp" />
-    <ClCompile Include="src\Tanks2.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\text.cpp" />
     <ClCompile Include="src\world.cpp" />
   </ItemGroup>

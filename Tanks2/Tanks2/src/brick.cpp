@@ -1,6 +1,6 @@
 #include "brick.h"
 
-void Brick::calculate()
+void Brick::calculate(sf::Event& event)
 {
     std::cout << "calculateBrick" << std::endl;
 }

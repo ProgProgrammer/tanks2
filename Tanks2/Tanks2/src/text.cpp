@@ -1,6 +1,6 @@
 #include "text.h"
 
-void Text::calculate()
+void Text::calculate(sf::Event& event)
 {
     std::cout << "calculateText" << std::endl;
 }

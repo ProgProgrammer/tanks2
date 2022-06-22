@@ -1,6 +1,6 @@
 #include "bullet.h"
 
-void Bullet::calculate()
+void Bullet::calculate(sf::Event& event)
 {
     std::cout << "calculateBullet" << std::endl;
 }

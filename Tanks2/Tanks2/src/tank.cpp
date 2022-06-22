@@ -1,6 +1,6 @@
 #include "tank.h"
 
-void Tank::calculate()
+void Tank::calculate(sf::Event& event)
 {
     std::cout << "calculateTank" << std::endl;
 }
