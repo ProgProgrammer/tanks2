@@ -2,10 +2,10 @@
 
 void Text::calculate(sf::Event& event)
 {
-    std::cout << "calculateText" << std::endl;
+    //std::cout << "calculateText" << std::endl;
 }
 
 void Text::draw()
 {
-    std::cout << "drawText" << std::endl;
+    //std::cout << "drawText" << std::endl;
 }

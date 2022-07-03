@@ -1,6 +1,7 @@
 #include <chrono>
 #include <thread>
 #include "world.h"
+#include "levelgenerator.h"
 
 World::World() {}
 
@@ -20,6 +21,10 @@ void World::calculate(sf::Event& event)
         {
             objectPtr->calculate(event);
         }
+        
+        /*std::string str = "levels.txt";
+        LevelGenerator levelgenerator;
+        levelgenerator.readLevelFromFile(str);*/
     }
 }
 

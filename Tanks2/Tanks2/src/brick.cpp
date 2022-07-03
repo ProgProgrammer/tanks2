@@ -2,10 +2,10 @@
 
 void Brick::calculate(sf::Event& event)
 {
-    std::cout << "calculateBrick" << std::endl;
+    //std::cout << "calculateBrick" << std::endl;
 }
 
 void Brick::draw()
 {
-    std::cout << "drawBrick" << std::endl;
+    //std::cout << "drawBrick" << std::endl;
 }

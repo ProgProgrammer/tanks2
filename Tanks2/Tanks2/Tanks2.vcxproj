@@ -140,6 +140,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\random_mover.cpp" />
+    <ClCompile Include="src\levelgenerator.cpp" />
     <ClCompile Include="src\brick.cpp" />
     <ClCompile Include="src\bullet.cpp" />
     <ClCompile Include="src\tank.cpp" />
@@ -148,6 +150,9 @@
     <ClCompile Include="src\world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\levelgenerator.h" />
+    <ClInclude Include="src\random_mover.h" />
+    <ClInclude Include="src\level.h" />
     <ClInclude Include="src\brick.h" />
     <ClInclude Include="src\bullet.h" />
     <ClInclude Include="src\iDrawable.h" />
