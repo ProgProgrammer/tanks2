@@ -29,7 +29,6 @@ void LevelGenerator::readLevelFromFile(const std::string& filename)
                 levels[counter_level].push_back(str_level);
             else
             {
-                str_level = "";
                 levels.resize(2);
                 counter_level++;
             }

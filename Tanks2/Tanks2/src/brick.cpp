@@ -1,11 +1,23 @@
 #include "brick.h"
 
+Brick::Brick(Config* conf)
+{
+    config = conf;
+    std::string str = "levels.txt";
+    readLevelFromFile(str);
+}
+
 void Brick::calculate(sf::Event& event)
 {
-    //std::cout << "calculateBrick" << std::endl;
+    
 }
 
 void Brick::draw()
 {
-    //std::cout << "drawBrick" << std::endl;
+    std::vector<std::string> str_arr = getRandomLevel();
+    
+    for (int i = 0; i < str_arr.size(); i++)
+    {
+        std::cout << str_arr[i] << std::endl;
+    }
 }

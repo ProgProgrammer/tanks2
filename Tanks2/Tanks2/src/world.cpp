@@ -11,6 +11,8 @@ World::~World()
     {
         delete objectPtr;
     }
+
+    delete config;
 }
 
 void World::calculate(sf::Event& event)
@@ -21,10 +23,8 @@ void World::calculate(sf::Event& event)
         {
             objectPtr->calculate(event);
         }
-        
-        /*std::string str = "levels.txt";
-        LevelGenerator levelgenerator;
-        levelgenerator.readLevelFromFile(str);*/
+
+        rendering();
     }
 }
 
@@ -44,7 +44,10 @@ void World::startLoop()
     Text* text = new Text;
     Tank* tank = new Tank;
     Bullet* bullet = new Bullet;
-    Brick* brick = new Brick;
+    int x = 20;
+    int y = 20;
+    config = new Config(x, y);
+    Brick* brick = new Brick(config);
 
     objects.push_back(text);
     objects.push_back(tank);
@@ -60,7 +63,6 @@ void World::startLoop()
         window.pollEvent(event);
 
         calculate(event);
-        rendering();
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> elapsed = end - start;

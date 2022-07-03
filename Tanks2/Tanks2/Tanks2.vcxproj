@@ -150,6 +150,7 @@
     <ClCompile Include="src\world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\config.h" />
     <ClInclude Include="src\levelgenerator.h" />
     <ClInclude Include="src\random_mover.h" />
     <ClInclude Include="src\level.h" />
