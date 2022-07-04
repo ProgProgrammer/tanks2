@@ -4,25 +4,26 @@
 #include "world.h"
 #include "levelgenerator.h"
 
-std::vector<Brick*> createBricks()
+sf::RenderWindow window(sf::VideoMode(400, 200), "TestProgram");
+
+std::vector<Brick*> createBricks(Config* config)
 {
     LevelGenerator levelgenerator;
     std::string str = "levels.txt";
     levelgenerator.readLevelFromFile(str);
     std::vector<std::string> str_arr = levelgenerator.getRandomLevel();
 
-    int x = 20;
-    int y = 20;
-    Config config(x, y);
     std::vector<Brick*> bricks;
+    int dx;
+    int dy;
 
     for (int i = 0; i < str_arr.size(); i++)
     {
         for (int a = 0; a < str_arr[i].size(); a++)
         {
-            int dx = x * a;
-            int dy = y * i;
-            bricks.push_back(new Brick(dx, dy, str_arr[i][a], config));
+            dx = config->dx * (a + 1);
+            dy = config->dy * (i + 1);
+            bricks.push_back(new Brick(dx, dy, str_arr[i][a], window, config));
         }
     }
 
@@ -31,7 +32,11 @@ std::vector<Brick*> createBricks()
 
 World::World() 
 {
-    bricks = createBricks();
+    int x = 20;
+    int y = 20;
+    config = new Config(x, y);
+    bricks = createBricks(config);
+    rendering();
 }
 
 World::~World()
