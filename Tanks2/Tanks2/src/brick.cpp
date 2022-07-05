@@ -16,7 +16,8 @@ void Brick::draw()
         color = emptyPlace;
     else
     {
-        int elem = (int)cell_num - 48;
+        short reduction_num = 48;
+        int elem = (int)cell_num - reduction_num;
         color = colors[elem];
     }
 

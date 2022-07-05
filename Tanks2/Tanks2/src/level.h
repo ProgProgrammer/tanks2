@@ -6,6 +6,6 @@
 class Level
 {
 public:
-    using level = std::vector<std::vector<std::string>>;
-    level levels;
+    using LEVEL = std::vector<std::vector<std::string>>;
+    LEVEL levels;
 };
