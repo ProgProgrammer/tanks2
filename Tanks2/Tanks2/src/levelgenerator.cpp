@@ -1,11 +1,10 @@
 #include <fstream>
 #include <string>
 #include "levelgenerator.h"
-#include "random_mover.h"
 
-std::vector<std::string> LevelGenerator::getRandomLevel() const
+Level LevelGenerator::getRandomLevel() const
 {
-    const int select_level = getRandomIntDll(0, number_levels);
+    const int select_level = getRandomInt(0, number_levels);
 
     return levels[select_level];
 }

@@ -2,7 +2,6 @@
 #include <thread>
 #include <string>
 #include "world.h"
-#include "levelgenerator.h"
 
 sf::RenderWindow window(sf::VideoMode(400, 200), "TestProgram");
 
@@ -11,19 +10,22 @@ std::vector<Brick*> createBricks(Config* config)
     LevelGenerator levelgenerator;
     std::string str = "levels.txt";
     levelgenerator.readLevelFromFile(str);
-    std::vector<std::string> str_arr = levelgenerator.getRandomLevel();
+    Level level = levelgenerator.getRandomLevel();
 
     std::vector<Brick*> bricks;
     int dx;
     int dy;
 
-    for (int i = 0; i < str_arr.size(); i++)
+    for (int pos_y = 0; pos_y < level.size(); pos_y++)
     {
-        for (int a = 0; a < str_arr[i].size(); a++)
+        const auto& line = level[pos_y];
+
+        for (int pos_x = 0; pos_x < line.size(); pos_x++)
         {
-            dx = config->dx * (a + 1);
-            dy = config->dy * (i + 1);
-            bricks.push_back(new Brick(dx, dy, str_arr[i][a], window, config));
+            const auto& cube = line[pos_x];
+            dx = config->dx * (pos_x + 1);
+            dy = config->dy * (pos_y + 1);
+            bricks.push_back(new Brick(dx, dy, cube, window, config));
         }
     }
 
@@ -36,7 +38,6 @@ World::World()
     int y = 20;
     config = new Config(x, y);
     bricks = createBricks(config);
-    rendering();
 }
 
 World::~World()
@@ -62,8 +63,6 @@ void World::calculate(sf::Event& event)
         {
             objectPtr->calculate(event);
         }
-
-        rendering();
     }
 }
 
@@ -103,6 +102,7 @@ void World::startLoop()
         window.pollEvent(event);
 
         calculate(event);
+        rendering();
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> elapsed = end - start;

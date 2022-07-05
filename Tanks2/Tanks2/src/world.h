@@ -5,7 +5,6 @@
 #include "bullet.h"
 #include "text.h"
 #include "tank.h"
-#include "config.h"
 
 class World
 {
