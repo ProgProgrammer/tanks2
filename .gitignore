@@ -347,4 +347,4 @@ healthchecksdb
 MigrationBackup/
 
 
-Tanks2\packages.config
+Tanks2\Tanks2\packages.config
