@@ -5,22 +5,8 @@
 
 sf::RenderWindow window(sf::VideoMode(400, 200), "TestProgram");
 
-std::vector<Brick*> createBricks(Config* config, Levels& levels, int num_level = 0)
+std::vector<Brick*> createBricks(Config* config, const Level& level, const int num_level = 0)
 {
-    LevelGenerator levelgenerator(levels);
-    std::string str = "levels.txt";
-    levelgenerator.readLevelsFromFile(str, num_level);
-    Level level;
-
-    try
-    {
-        level = levelgenerator.getLevel(num_level);
-    }
-    catch (std::runtime_error& error)
-    {
-        std::cout << error.what() << "\n";
-    }
-
     std::vector<Brick*> bricks;
     int dx;
     int dy;
@@ -32,8 +18,8 @@ std::vector<Brick*> createBricks(Config* config, Levels& levels, int num_level =
         for (int pos_x = 0; pos_x < line.size(); pos_x++)
         {
             const auto& cube = line[pos_x];
-            dx = config->dx * (pos_x + 1);
-            dy = config->dy * (pos_y + 1);
+            dx = config->m_dx * (pos_x + 1);
+            dy = config->m_dy * (pos_y + 1);
             bricks.push_back(new Brick(dx, dy, cube, window, config));
         }
     }
@@ -41,39 +27,54 @@ std::vector<Brick*> createBricks(Config* config, Levels& levels, int num_level =
     return bricks;
 }
 
-World::World(int& num_level)
+World::World()
 {
+    m_num_level = 1;
     int x = 20;
     int y = 20;
-    config = new Config(x, y);
-    bricks = createBricks(config, levels, num_level);
+    m_config = new Config(x, y);
+
+    LevelGenerator levelgenerator;
+    levelgenerator.readLevelsFromFile("levels.txt", m_num_level);
+    Level level;
+
+    try
+    {
+        level = levelgenerator.getLevel(m_num_level);
+    }
+    catch (std::runtime_error& error)
+    {
+        std::cout << error.what() << "\n";
+    }
+
+    m_bricks = createBricks(m_config, level, m_num_level);
 }
 
 World::~World()
 {
-    for (auto objectPtr : objects)
+    for (auto objectPtr : m_objects)
     {
         delete objectPtr;
     }
 
-    for (auto brickPtr : bricks)
+    for (auto brickPtr : m_bricks)
     {
         delete brickPtr;
     }
 
-    delete config;
+    delete m_config;
 }
 
 void World::calculate(sf::Event& event)
 {
     if (event.type == sf::Event::KeyPressed)
     {
-        for (auto objectPtr : objects)
+        for (auto objectPtr : m_objects)
         {
             objectPtr->calculate(event);
         }
 
-        for (auto brickPtr : bricks)
+        for (auto brickPtr : m_bricks)
         {
             brickPtr->calculate(event);
         }
@@ -82,12 +83,12 @@ void World::calculate(sf::Event& event)
 
 void World::rendering()
 {
-    for (auto objectPtr : objects)
+    for (auto objectPtr : m_objects)
     {
         objectPtr->draw();
     }
 
-    for (auto brickPtr : bricks)
+    for (auto brickPtr : m_bricks)
     {
         brickPtr->draw();
     }
@@ -103,9 +104,9 @@ void World::startLoop()
     Tank* tank = new Tank;
     Bullet* bullet = new Bullet;
 
-    objects.push_back(text);
-    objects.push_back(tank);
-    objects.push_back(bullet);
+    m_objects.push_back(text);
+    m_objects.push_back(tank);
+    m_objects.push_back(bullet);
 
     while (window.isOpen())
     {

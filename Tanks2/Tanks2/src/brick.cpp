@@ -1,6 +1,7 @@
 #include "brick.h"
 
-Brick::Brick(const int& x, const int& y, const char& ch, sf::RenderWindow& wind, Config* conf) : m_dx(x), m_dy(y), m_cube(ch), window(wind), config(conf)
+Brick::Brick(const int& x, const int& y, const char& ch, sf::RenderWindow& wind, Config* conf) : m_dx(x), m_dy(y), m_cube(ch), m_window(wind), 
+                                                                                                m_config(conf)
 {}
 
 void Brick::calculate(sf::Event& event)
@@ -22,10 +23,10 @@ void Brick::draw()
         color = m_colors[elem];
     }
 
-    sf::RectangleShape rec_shape = sf::RectangleShape(sf::Vector2f(config->dx, config->dy));
+    sf::RectangleShape rec_shape = sf::RectangleShape(sf::Vector2f(m_config->m_dx, m_config->m_dy));
     rec_shape.setFillColor(color);
     rec_shape.setPosition(m_dx, m_dy);
     rec_shape.setOrigin(rec_shape.getSize().x, rec_shape.getSize().y);
 
-    window.draw(rec_shape);
+    m_window.draw(rec_shape);
 }

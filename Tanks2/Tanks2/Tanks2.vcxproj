@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\config.h" />
+    <ClInclude Include="src\level.h" />
     <ClInclude Include="src\levelgenerator.h" />
     <ClInclude Include="src\brick.h" />
     <ClInclude Include="src\bullet.h" />

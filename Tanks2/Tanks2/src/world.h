@@ -9,15 +9,16 @@
 class World
 {
 private:
-    std::vector<IDrawable*> objects;
-    std::vector<Brick*> bricks;
-    Config* config;
-    Levels levels;
+    std::vector<IDrawable*> m_objects;
+    std::vector<Brick*> m_bricks;
+    Config* m_config;
+    Levels m_levels;
+    int m_num_level;
     void calculate(sf::Event & event);
     void rendering();
 
 public:
-    World(int& num_level);
+    World();
     ~World();
     void startLoop();
 };

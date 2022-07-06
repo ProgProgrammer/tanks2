@@ -1,20 +1,12 @@
 #include <fstream>
 #include <string>
 #include "levelgenerator.h"
-
-LevelGenerator::LevelGenerator(Levels& levl) : levels(levl) {}
-
-Level LevelGenerator::getRandomLevel() const
-{
-    const int select_level = getRandomInt(0, number_levels);
-
-    return levels[select_level];
-}
+#include <iostream>
 
 Level LevelGenerator::getLevel(int& num_level) const
 {
-    if (num_level >= 0 && num_level <= number_levels)
-        return levels[num_level];
+    if (num_level < m_levels.size())
+        return m_levels[num_level];
     else
         throw std::runtime_error("There is no such element on the level.");
 }
@@ -24,27 +16,29 @@ void LevelGenerator::readLevelsFromFile(const std::string& filename, int& num_le
     std::string input_file = filename;
     std::ifstream inFile;
     inFile.open(input_file);
-    std::string str_level = "";
-    int counter_level = 0;
-    levels.resize(1);
 
     if (inFile.is_open())
     {
+        Level current_level;
+
         while (!inFile.eof())
         {
+            std::string str_level = "";
             std::getline(inFile, str_level);
 
             if (str_level != "")
-                levels[counter_level].push_back(str_level);
+            {
+                current_level.push_back(str_level);
+            }
             else
             {
-                levels.resize(2);
-                counter_level++;
+                m_levels.push_back(current_level);
+                current_level.clear();
             }
         }
+
+        m_levels.push_back(current_level);
     }
 
     inFile.close();
-
-    number_levels = counter_level;
 }
