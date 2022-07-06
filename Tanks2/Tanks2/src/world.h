@@ -12,11 +12,12 @@ private:
     std::vector<IDrawable*> objects;
     std::vector<Brick*> bricks;
     Config* config;
+    Levels levels;
     void calculate(sf::Event & event);
     void rendering();
 
 public:
-    World();
+    World(int& num_level);
     ~World();
     void startLoop();
 };

@@ -7,4 +7,3 @@ int castToInt(const char& ch);
 
 using Level = std::vector<std::string>;
 using Levels = std::vector<Level>;
-Levels levels;

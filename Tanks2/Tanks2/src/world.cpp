@@ -5,12 +5,21 @@
 
 sf::RenderWindow window(sf::VideoMode(400, 200), "TestProgram");
 
-std::vector<Brick*> createBricks(Config* config)
+std::vector<Brick*> createBricks(Config* config, Levels& levels, int num_level = 0)
 {
-    LevelGenerator levelgenerator;
+    LevelGenerator levelgenerator(levels);
     std::string str = "levels.txt";
-    levelgenerator.readLevelFromFile(str);
-    Level level = levelgenerator.getRandomLevel();
+    levelgenerator.readLevelsFromFile(str, num_level);
+    Level level;
+
+    try
+    {
+        level = levelgenerator.getLevel(num_level);
+    }
+    catch (std::runtime_error& error)
+    {
+        std::cout << error.what() << "\n";
+    }
 
     std::vector<Brick*> bricks;
     int dx;
@@ -32,12 +41,12 @@ std::vector<Brick*> createBricks(Config* config)
     return bricks;
 }
 
-World::World() 
+World::World(int& num_level)
 {
     int x = 20;
     int y = 20;
     config = new Config(x, y);
-    bricks = createBricks(config);
+    bricks = createBricks(config, levels, num_level);
 }
 
 World::~World()
@@ -62,6 +71,11 @@ void World::calculate(sf::Event& event)
         for (auto objectPtr : objects)
         {
             objectPtr->calculate(event);
+        }
+
+        for (auto brickPtr : bricks)
+        {
+            brickPtr->calculate(event);
         }
     }
 }
