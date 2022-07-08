@@ -13,7 +13,6 @@ private:
     std::vector<Brick*> m_bricks;
     Config* m_config;
     Levels m_levels;
-    int m_num_level;
     void calculate(sf::Event & event);
     void rendering();
 

@@ -11,7 +11,7 @@ Level LevelGenerator::getLevel(int& num_level) const
         throw std::runtime_error("There is no such element on the level.");
 }
 
-void LevelGenerator::readLevelsFromFile(const std::string& filename, int& num_level)
+void LevelGenerator::readLevelsFromFile(const std::string& filename)
 {
     std::string input_file = filename;
     std::ifstream inFile;

@@ -5,7 +5,7 @@
 
 sf::RenderWindow window(sf::VideoMode(400, 200), "TestProgram");
 
-std::vector<Brick*> createBricks(Config* config, const Level& level, const int num_level = 0)
+std::vector<Brick*> createBricks(Config* config, const Level& level)
 {
     std::vector<Brick*> bricks;
     int dx;
@@ -29,25 +29,25 @@ std::vector<Brick*> createBricks(Config* config, const Level& level, const int n
 
 World::World()
 {
-    m_num_level = 1;
     int x = 20;
     int y = 20;
     m_config = new Config(x, y);
 
     LevelGenerator levelgenerator;
-    levelgenerator.readLevelsFromFile("levels.txt", m_num_level);
+    levelgenerator.readLevelsFromFile("levels.txt");
     Level level;
 
     try
     {
-        level = levelgenerator.getLevel(m_num_level);
+        int num_level = 1;
+        level = levelgenerator.getLevel(num_level);
     }
     catch (std::runtime_error& error)
     {
         std::cout << error.what() << "\n";
     }
 
-    m_bricks = createBricks(m_config, level, m_num_level);
+    m_bricks = createBricks(m_config, level);
 }
 
 World::~World()
