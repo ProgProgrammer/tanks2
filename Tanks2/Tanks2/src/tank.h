@@ -4,6 +4,6 @@
 class Tank : public IDrawable
 {
 public:
-    virtual void calculate() override;
-    virtual void draw() override;
+    void calculate(sf::Event& event) override;
+    void draw() override;
 };
