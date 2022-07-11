@@ -69,6 +69,8 @@ void World::calculate(sf::Event& event)
 {
     if (event.type == sf::Event::KeyPressed)
     {
+        sf::Keyboard::W;
+
         for (auto objectPtr : m_objects)
         {
             objectPtr->calculate(event);
@@ -83,14 +85,14 @@ void World::calculate(sf::Event& event)
 
 void World::rendering()
 {
-    for (auto objectPtr : m_objects)
-    {
-        objectPtr->draw();
-    }
-
     for (auto brickPtr : m_bricks)
     {
         brickPtr->draw();
+    }
+
+    for (auto objectPtr : m_objects)
+    {
+        objectPtr->draw();
     }
 
     window.display();
@@ -101,7 +103,13 @@ void World::startLoop()
     sf::Clock clock;
 
     Text* text = new Text;
-    Tank* tank = new Tank;
+
+    int tank_width = 30;
+    int tank_height = 50;
+    int width_window = 400;
+    int height_window = 200;
+
+    Tank* tank = new Tank(tank_width, tank_height, window, width_window, height_window);
     Bullet* bullet = new Bullet;
 
     m_objects.push_back(text);

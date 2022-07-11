@@ -9,6 +9,7 @@
 class World
 {
 private:
+    sf::RenderWindow m_window;
     std::vector<IDrawable*> m_objects;
     std::vector<Brick*> m_bricks;
     Config* m_config;
