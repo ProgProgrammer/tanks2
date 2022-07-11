@@ -8,9 +8,12 @@ private:
     int m_height_window;
     float m_width_tank;
     float m_height_tank;
+    float m_half_width_tank;
+    float m_half_height_tank;
     float m_x_position;
     float m_y_position;
     int m_speed_tank;
+    int rotate_value = 90;
     bool m_top_rotate = true;
     bool m_bottom_rotate = false;
     bool m_left_rotate = false;
