@@ -1,7 +1,6 @@
 #pragma once
 #include "iDrawable.h"
 #include "levelgenerator.h"
-#include "config.h"
 
 class Brick : public IDrawable
 {
