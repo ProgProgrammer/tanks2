@@ -115,6 +115,11 @@ void Tank::calculate(sf::Event& event)
             m_left_rotate = true;
             m_right_rotate = false;
 
+            if (m_x_position + m_height_tank > m_width_window)
+            {
+                m_x_position -= m_height_tank - m_width_tank;
+            }
+
             m_y_position += (m_height_tank + m_width_tank) / 2;
             m_sprite.setPosition(m_x_position, m_y_position);
         }
@@ -146,6 +151,12 @@ void Tank::calculate(sf::Event& event)
             m_left_rotate = false;
 
             m_x_position += m_width_tank;
+
+            if (m_x_position - m_height_tank < 0)
+            {
+                m_x_position += m_height_tank - m_width_tank;
+            }
+
             m_y_position += (m_height_tank - m_width_tank) / 2;
             m_sprite.setPosition(m_x_position, m_y_position);
         }
