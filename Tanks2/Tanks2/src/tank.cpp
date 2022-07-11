@@ -26,7 +26,7 @@ Tank::Tank(int& w, int& h, sf::RenderWindow& window, int& width_window, int& hei
 
 void Tank::calculate(sf::Event& event)
 {
-    if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
+    if (event.key.code == sf::Keyboard::Up)
     {
         if (m_top_rotate == false)
         {
@@ -60,7 +60,7 @@ void Tank::calculate(sf::Event& event)
             m_sprite.setPosition(m_x_position, m_y_position);
         }
     }
-    else if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
+    else if (event.key.code == sf::Keyboard::Down)
     {
         if (m_bottom_rotate == false)
         {
@@ -93,7 +93,7 @@ void Tank::calculate(sf::Event& event)
             m_sprite.setPosition(m_x_position, m_y_position);
         }
     }
-    else if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left)
+    else if (event.key.code == sf::Keyboard::Left)
     {
         if (m_left_rotate == false)
         {
@@ -129,7 +129,7 @@ void Tank::calculate(sf::Event& event)
             m_sprite.setPosition(m_x_position, m_y_position);
         }
     }
-    else if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right)
+    else if (event.key.code == sf::Keyboard::Right)
     {
         if (m_right_rotate == false)
         {
