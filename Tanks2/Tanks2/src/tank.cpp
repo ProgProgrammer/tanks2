@@ -31,12 +31,27 @@ void Tank::calculate(sf::Event& event)
         if (m_top_rotate == false)
         {
             m_sprite.setRotation(0);
+
+            if (m_bottom_rotate == true)
+            {
+                m_y_position -= m_height_tank;
+                m_x_position -= m_width_tank;
+            }
+            else if (m_right_rotate == true)
+            {
+                m_x_position -= m_width_tank;
+                m_y_position -= (m_height_tank - m_width_tank) / 2;
+            }
+            else if (m_left_rotate == true)
+            {
+                m_y_position -= m_height_tank - (m_height_tank - m_width_tank) / 2;
+            }
+
             m_top_rotate = true;
             m_bottom_rotate = false;
             m_left_rotate = false;
             m_right_rotate = false;
-            m_y_position -= m_height_tank;
-            m_x_position -= m_width_tank;
+
             m_sprite.setPosition(m_x_position, m_y_position);
         }
         else if (m_y_position - m_speed_tank >= 0)
@@ -50,12 +65,26 @@ void Tank::calculate(sf::Event& event)
         if (m_bottom_rotate == false)
         {
             m_sprite.setRotation(-(rotate_value * 2));
+
+            if (m_top_rotate == true)
+            {
+                m_y_position += m_height_tank;
+                m_x_position += m_width_tank;
+            }
+            else if (m_right_rotate == true)
+            {
+                m_y_position += (m_height_tank + m_width_tank) / 2;
+            }
+            else if (m_left_rotate == true)
+            {
+                m_x_position += m_width_tank;
+                m_y_position += (m_height_tank - m_width_tank) / 2;
+            }
+
             m_bottom_rotate = true;
             m_top_rotate = false;
             m_left_rotate = false;
             m_right_rotate = false;
-            m_y_position += m_height_tank;
-            m_x_position += m_width_tank;
             m_sprite.setPosition(m_x_position, m_y_position);
         }
         else if (m_y_position + m_speed_tank <= m_height_window)
@@ -69,10 +98,23 @@ void Tank::calculate(sf::Event& event)
         if (m_left_rotate == false)
         {
             m_sprite.setRotation(-rotate_value);
+
+            if (m_bottom_rotate == true)
+            {
+                m_y_position -= m_height_tank;
+                m_x_position -= m_width_tank;
+            }
+            else if (m_right_rotate == true)
+            {
+                m_x_position -= m_width_tank;
+                m_y_position -= (m_height_tank - m_width_tank) / 2;
+            }
+
             m_top_rotate = false;
             m_bottom_rotate = false;
             m_left_rotate = true;
             m_right_rotate = false;
+
             m_y_position += (m_height_tank + m_width_tank) / 2;
             m_sprite.setPosition(m_x_position, m_y_position);
         }
@@ -87,15 +129,27 @@ void Tank::calculate(sf::Event& event)
         if (m_right_rotate == false)
         {
             m_sprite.setRotation(rotate_value);
+
+            if (m_bottom_rotate == true)
+            {
+                m_y_position -= m_height_tank;
+                m_x_position -= m_width_tank;
+            }
+            else if (m_left_rotate == true)
+            {
+                m_y_position -= m_height_tank - (m_height_tank - m_width_tank) / 2;
+            }
+
             m_top_rotate = false;
             m_bottom_rotate = false;
             m_right_rotate = true;
             m_left_rotate = false;
+
             m_x_position += m_width_tank;
             m_y_position += (m_height_tank - m_width_tank) / 2;
             m_sprite.setPosition(m_x_position, m_y_position);
         }
-        else if ((m_x_position + m_width_tank) + m_speed_tank <= m_width_window)
+        else if (m_x_position + m_speed_tank <= m_width_window)
         {
             m_x_position += m_speed_tank;
             m_sprite.setPosition(m_x_position, m_y_position);
