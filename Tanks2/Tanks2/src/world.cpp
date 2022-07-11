@@ -69,8 +69,6 @@ void World::calculate(sf::Event& event)
 {
     if (event.type == sf::Event::KeyPressed)
     {
-        sf::Keyboard::W;
-
         for (auto objectPtr : m_objects)
         {
             objectPtr->calculate(event);
@@ -108,8 +106,9 @@ void World::startLoop()
     int tank_height = 50;
     int width_window = 400;
     int height_window = 200;
+    int speed_tank = 1;
 
-    Tank* tank = new Tank(tank_width, tank_height, window, width_window, height_window);
+    Tank* tank = new Tank(tank_width, tank_height, window, width_window, height_window, speed_tank);
     Bullet* bullet = new Bullet;
 
     m_objects.push_back(text);
