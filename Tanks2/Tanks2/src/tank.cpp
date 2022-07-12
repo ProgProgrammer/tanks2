@@ -11,7 +11,7 @@ Tank::Tank(Config* config, sf::RenderWindow* window) : m_config(config), m_windo
         sf::Vector2u size = m_image.getSize();
         m_tank_width = 75;
         m_tank_height = 75;
-        m_speed_tank = 1;
+        m_speed_tank = 5;
         float kx = m_tank_width / size.x;
         float ky = m_tank_height / size.y;
         sf::Sprite sprite(m_image);
@@ -26,30 +26,44 @@ Tank::Tank(Config* config, sf::RenderWindow* window) : m_config(config), m_windo
 
 void Tank::calculate(sf::Event& event)
 {
-    int shift = 5;
-
     if (event.key.code == sf::Keyboard::Up)
     {
         m_sprite.setRotation(0);
-        m_y_position -= shift;
+
+        if (m_y_position - m_tank_height / 2 - m_speed_tank >= 0)
+        {
+            m_y_position -= m_speed_tank;        
+        }
     }
 
     if (event.key.code == sf::Keyboard::Down)
     {
         m_sprite.setRotation(-180);
-        m_y_position += shift;
+
+        if (m_y_position + m_tank_height / 2 + m_speed_tank <= m_config->m_height_window - m_speed_tank)
+        {
+            m_y_position += m_speed_tank;
+        }
     }
 
     if (event.key.code == sf::Keyboard::Left)
     {
         m_sprite.setRotation(-90);
-        m_x_position -= shift;
+
+        if (m_x_position - m_tank_width / 2 - m_speed_tank >= m_speed_tank)
+        {
+            m_x_position -= m_speed_tank;
+        }
     }
 
     if (event.key.code == sf::Keyboard::Right)
     {
         m_sprite.setRotation(90);
-        m_x_position += shift;
+
+        if (m_x_position + m_tank_width / 2 + m_speed_tank <= m_config->m_width_window - m_speed_tank)
+        {
+            m_x_position += m_speed_tank;
+        }
     }
 
     m_sprite.setPosition(m_x_position, m_y_position);
