@@ -50,14 +50,13 @@ void Tank::calculate(sf::Event& event)
             m_bottom_rotate = false;
             m_left_rotate = false;
             m_right_rotate = false;
-
-            m_sprite.setPosition(m_x_position, m_y_position);
         }
         else if (m_y_position - m_config->m_speed_tank >= 0)
         {
             m_y_position -= m_config->m_speed_tank;
-            m_sprite.setPosition(m_x_position, m_y_position);
         }
+
+        m_sprite.setPosition(m_x_position, m_y_position);
     }
     else if (event.key.code == sf::Keyboard::Down)
     {
@@ -84,13 +83,13 @@ void Tank::calculate(sf::Event& event)
             m_top_rotate = false;
             m_left_rotate = false;
             m_right_rotate = false;
-            m_sprite.setPosition(m_x_position, m_y_position);
         }
         else if (m_y_position + m_config->m_speed_tank <= m_config->m_height_window)
         {
             m_y_position += m_config->m_speed_tank;
-            m_sprite.setPosition(m_x_position, m_y_position);
         }
+
+        m_sprite.setPosition(m_x_position, m_y_position);
     }
     else if (event.key.code == sf::Keyboard::Left)
     {
@@ -120,13 +119,13 @@ void Tank::calculate(sf::Event& event)
             }
 
             m_y_position += (m_config->m_tank_height + m_config->m_tank_width) / 2;
-            m_sprite.setPosition(m_x_position, m_y_position);
         }
         else if (m_x_position - m_config->m_speed_tank >= 0)
         {
             m_x_position -= m_config->m_speed_tank;
-            m_sprite.setPosition(m_x_position, m_y_position);
         }
+
+        m_sprite.setPosition(m_x_position, m_y_position);
     }
     else if (event.key.code == sf::Keyboard::Right)
     {
@@ -157,13 +156,13 @@ void Tank::calculate(sf::Event& event)
             }
 
             m_y_position += (m_config->m_tank_height - m_config->m_tank_width) / 2;
-            m_sprite.setPosition(m_x_position, m_y_position);
         }
         else if (m_x_position + m_config->m_speed_tank <= m_config->m_width_window)
         {
             m_x_position += m_config->m_speed_tank;
-            m_sprite.setPosition(m_x_position, m_y_position);
         }
+
+        m_sprite.setPosition(m_x_position, m_y_position);
     }
 }
 
