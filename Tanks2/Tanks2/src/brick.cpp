@@ -1,11 +1,12 @@
 #include "brick.h"
 
-Brick::Brick(const int& x, const int& y, const char& ch, const Config* conf) : m_dx(x), m_dy(y), m_cube(ch), m_config(conf)
-{}
+Brick::Brick(const int& x, const int& y, const char& ch, const Config* conf)
+    : m_dx(x), m_dy(y), m_cube(ch), m_config(conf)
+{
+}
 
 void Brick::calculate(sf::Event& event)
 {
-    
 }
 
 void Brick::draw()

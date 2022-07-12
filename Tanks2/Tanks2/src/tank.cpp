@@ -8,165 +8,67 @@ Tank::Tank(Config* config) : m_config(config)
     }
     else
     {
-        m_half_width_tank = m_config->m_tank_width / 2;
-        m_half_height_tank = m_config->m_tank_height / 2;
         sf::Vector2u size = m_image.getSize();
-        float x = m_config->m_tank_width / size.x;
-        float y = m_config->m_tank_height / size.y;
+        m_tank_width = 50;
+        m_tank_height = 50;
+        m_speed_tank = 1;
+        float kx = m_tank_width / size.x;
+        float ky = m_tank_height / size.y;
         sf::Sprite sprite(m_image);
+        sprite.setOrigin(size.x / 2, size.y / 2);
         m_sprite = sprite;
-        m_sprite.setScale(x, y);
-        m_x_position = m_config->m_width_window / 2 - (m_config->m_tank_width / 2);
-        m_y_position = m_config->m_height_window - m_config->m_tank_height;
+        m_sprite.setScale(kx, ky);
+        m_x_position = m_config->m_width_window / 2 - (m_tank_width / 2);
+        m_y_position = m_config->m_height_window - m_tank_height;
         m_sprite.setPosition(m_x_position, m_y_position);
-    }    
+    }
 }
-
 
 void Tank::calculate(sf::Event& event)
 {
+    int shift = 5;
+
     if (event.key.code == sf::Keyboard::Up)
     {
-        if (m_top_rotate == false)
-        {
-            m_sprite.setRotation(0);
-
-            if (m_bottom_rotate == true)
-            {
-                m_y_position -= m_config->m_tank_height;
-                m_x_position -= m_config->m_tank_width;
-            }
-            else if (m_right_rotate == true)
-            {
-                m_x_position -= m_config->m_tank_width;
-                m_y_position -= (m_config->m_tank_height - m_config->m_tank_width) / 2;
-            }
-            else if (m_left_rotate == true)
-            {
-                m_y_position -= m_config->m_tank_height - (m_config->m_tank_height - m_config->m_tank_width) / 2;
-            }
-
-            m_top_rotate = true;
-            m_bottom_rotate = false;
-            m_left_rotate = false;
-            m_right_rotate = false;
-        }
-        else if (m_y_position - m_config->m_speed_tank >= 0)
-        {
-            m_y_position -= m_config->m_speed_tank;
-        }
-
-        m_sprite.setPosition(m_x_position, m_y_position);
+        m_sprite.setRotation(0);
+        m_y_position -= shift;
     }
-    else if (event.key.code == sf::Keyboard::Down)
+
+    if (event.key.code == sf::Keyboard::Down)
     {
-        if (m_bottom_rotate == false)
-        {
-            m_sprite.setRotation(-(rotate_value * 2));
-
-            if (m_top_rotate == true)
-            {
-                m_y_position += m_config->m_tank_height;
-                m_x_position += m_config->m_tank_width;
-            }
-            else if (m_right_rotate == true)
-            {
-                m_y_position += (m_config->m_tank_height + m_config->m_tank_width) / 2;
-            }
-            else if (m_left_rotate == true)
-            {
-                m_x_position += m_config->m_tank_width;
-                m_y_position += (m_config->m_tank_height - m_config->m_tank_width) / 2;
-            }
-
-            m_bottom_rotate = true;
-            m_top_rotate = false;
-            m_left_rotate = false;
-            m_right_rotate = false;
-        }
-        else if (m_y_position + m_config->m_speed_tank <= m_config->m_height_window)
-        {
-            m_y_position += m_config->m_speed_tank;
-        }
-
-        m_sprite.setPosition(m_x_position, m_y_position);
+        m_sprite.setRotation(-180);
+        m_y_position += shift;
     }
-    else if (event.key.code == sf::Keyboard::Left)
+
+    if (event.key.code == sf::Keyboard::Left)
     {
-        if (m_left_rotate == false)
-        {
-            m_sprite.setRotation(-rotate_value);
-
-            if (m_bottom_rotate == true)
-            {
-                m_y_position -= m_config->m_tank_height;
-                m_x_position -= m_config->m_tank_width;
-            }
-            else if (m_right_rotate == true)
-            {
-                m_x_position -= m_config->m_tank_width;
-                m_y_position -= (m_config->m_tank_height - m_config->m_tank_width) / 2;
-            }
-
-            m_top_rotate = false;
-            m_bottom_rotate = false;
-            m_left_rotate = true;
-            m_right_rotate = false;
-
-            if (m_x_position + m_config->m_tank_height > m_config->m_width_window)
-            {
-                m_x_position -= m_config->m_tank_height - m_config->m_tank_width;
-            }
-
-            m_y_position += (m_config->m_tank_height + m_config->m_tank_width) / 2;
-        }
-        else if (m_x_position - m_config->m_speed_tank >= 0)
-        {
-            m_x_position -= m_config->m_speed_tank;
-        }
-
-        m_sprite.setPosition(m_x_position, m_y_position);
+        m_sprite.setRotation(-90);
+        m_x_position -= shift;
     }
-    else if (event.key.code == sf::Keyboard::Right)
+
+    if (event.key.code == sf::Keyboard::Right)
     {
-        if (m_right_rotate == false)
-        {
-            m_sprite.setRotation(rotate_value);
-
-            if (m_bottom_rotate == true)
-            {
-                m_y_position -= m_config->m_tank_height;
-                m_x_position -= m_config->m_tank_width;
-            }
-            else if (m_left_rotate == true)
-            {
-                m_y_position -= m_config->m_tank_height - (m_config->m_tank_height - m_config->m_tank_width) / 2;
-            }
-
-            m_top_rotate = false;
-            m_bottom_rotate = false;
-            m_right_rotate = true;
-            m_left_rotate = false;
-
-            m_x_position += m_config->m_tank_width;
-
-            if (m_x_position - m_config->m_tank_height < 0)
-            {
-                m_x_position += m_config->m_tank_height - m_config->m_tank_width;
-            }
-
-            m_y_position += (m_config->m_tank_height - m_config->m_tank_width) / 2;
-        }
-        else if (m_x_position + m_config->m_speed_tank <= m_config->m_width_window)
-        {
-            m_x_position += m_config->m_speed_tank;
-        }
-
-        m_sprite.setPosition(m_x_position, m_y_position);
+        m_sprite.setRotation(90);
+        m_x_position += shift;
     }
+
+    m_sprite.setPosition(m_x_position, m_y_position);
 }
 
 void Tank::draw()
 {
     m_config->m_window->draw(m_sprite);
+
+    sf::CircleShape shape(2);
+    shape.setFillColor(sf::Color(100, 250, 50));
+    shape.setPosition(m_x_position - 1, m_y_position - 1);
+    m_config->m_window->draw(shape);
+
+    sf::RectangleShape rectangle;
+    rectangle.setSize(sf::Vector2f(m_tank_width, m_tank_height));
+    rectangle.setOutlineThickness(5);
+    rectangle.setFillColor(sf::Color::Transparent);
+    rectangle.setOrigin(m_tank_width / 2, m_tank_height / 2);
+    rectangle.setPosition(m_x_position, m_y_position);
+    m_config->m_window->draw(rectangle);
 }

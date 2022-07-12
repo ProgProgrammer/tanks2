@@ -1,7 +1,7 @@
-#include <fstream>
-#include <string>
 #include "levelgenerator.h"
+#include <fstream>
 #include <iostream>
+#include <string>
 
 Level LevelGenerator::getLevel(int& num_level) const
 {

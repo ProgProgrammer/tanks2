@@ -1,7 +1,7 @@
-#include <chrono>
-#include <thread>
-#include <string>
 #include "world.h"
+#include <chrono>
+#include <string>
+#include <thread>
 
 std::vector<Brick*> createBricks(Config* m_config, const Level& level)
 {
@@ -29,13 +29,10 @@ World::World()
 {
     int x = 20;
     int y = 20;
-    int width_window = 400;
-    int height_window = 200;
-    float tank_width = 30;
-    float tank_height = 50;
-    int speed_tank = 1;
+    int width_window = 1200;
+    int height_window = 600;
     sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(width_window, height_window), "TestProgram");
-    m_config = new Config(x, y, width_window, height_window, tank_width, tank_height, speed_tank, window);
+    m_config = new Config(x, y, width_window, height_window, window);
 
     LevelGenerator levelgenerator;
     levelgenerator.readLevelsFromFile("levels.txt");
@@ -88,6 +85,8 @@ void World::calculate(sf::Event& event)
 
 void World::rendering()
 {
+    m_config->m_window->clear();
+
     for (auto brickPtr : m_bricks)
     {
         brickPtr->draw();

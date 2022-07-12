@@ -1,12 +1,13 @@
 #pragma once
-#include "utils.h"
 #include "level.h"
+#include "utils.h"
 
 class LevelGenerator
 {
-private:
+  private:
     Levels m_levels;
-public:
+
+  public:
     Level getLevel(int& num_level) const;
     void readLevelsFromFile(const std::string& filename);
 };
