@@ -11,7 +11,7 @@ Tank::Tank(Config* config, sf::RenderWindow* window) : m_config(config), m_windo
         sf::Vector2u size = m_image.getSize();
         m_tank_width = 75;
         m_tank_height = 75;
-        m_speed_tank = 5;
+        m_speed_tank = 4;
         float kx = m_tank_width / size.x;
         float ky = m_tank_height / size.y;
         sf::Sprite sprite(m_image);
