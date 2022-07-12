@@ -1,7 +1,6 @@
 #include "brick.h"
 
-Brick::Brick(const int& x, const int& y, const char& ch, sf::RenderWindow& wind, Config* conf) : m_dx(x), m_dy(y), m_cube(ch), m_window(wind), 
-                                                                                                m_config(conf)
+Brick::Brick(const int& x, const int& y, const char& ch, const Config* conf) : m_dx(x), m_dy(y), m_cube(ch), m_config(conf)
 {}
 
 void Brick::calculate(sf::Event& event)
@@ -28,5 +27,5 @@ void Brick::draw()
     rec_shape.setPosition(m_dx, m_dy);
     rec_shape.setOrigin(rec_shape.getSize().x, rec_shape.getSize().y);
 
-    m_window.draw(rec_shape);
+    m_config->m_window->draw(rec_shape);
 }

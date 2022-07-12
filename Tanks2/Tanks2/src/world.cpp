@@ -3,9 +3,7 @@
 #include <string>
 #include "world.h"
 
-sf::RenderWindow window(sf::VideoMode(400, 200), "TestProgram");
-
-std::vector<Brick*> createBricks(Config* config, const Level& level)
+std::vector<Brick*> createBricks(Config* m_config, const Level& level)
 {
     std::vector<Brick*> bricks;
     int dx;
@@ -18,9 +16,9 @@ std::vector<Brick*> createBricks(Config* config, const Level& level)
         for (int pos_x = 0; pos_x < line.size(); pos_x++)
         {
             const auto& cube = line[pos_x];
-            dx = config->m_dx * (pos_x + 1);
-            dy = config->m_dy * (pos_y + 1);
-            bricks.push_back(new Brick(dx, dy, cube, window, config));
+            dx = m_config->m_dx * (pos_x + 1);
+            dy = m_config->m_dy * (pos_y + 1);
+            bricks.push_back(new Brick(dx, dy, cube, m_config));
         }
     }
 
@@ -31,7 +29,13 @@ World::World()
 {
     int x = 20;
     int y = 20;
-    m_config = new Config(x, y);
+    int width_window = 400;
+    int height_window = 200;
+    float tank_width = 30;
+    float tank_height = 50;
+    int speed_tank = 1;
+    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(width_window, height_window), "TestProgram");
+    m_config = new Config(x, y, width_window, height_window, tank_width, tank_height, speed_tank, window);
 
     LevelGenerator levelgenerator;
     levelgenerator.readLevelsFromFile("levels.txt");
@@ -62,6 +66,7 @@ World::~World()
         delete brickPtr;
     }
 
+    delete m_config->m_window;
     delete m_config;
 }
 
@@ -93,7 +98,7 @@ void World::rendering()
         objectPtr->draw();
     }
 
-    window.display();
+    m_config->m_window->display();
 }
 
 void World::startLoop()
@@ -101,36 +106,29 @@ void World::startLoop()
     sf::Clock clock;
 
     Text* text = new Text;
-
-    int tank_width = 30;
-    int tank_height = 50;
-    int width_window = 400;
-    int height_window = 200;
-    int speed_tank = 1;
-
-    Tank* tank = new Tank(tank_width, tank_height, window, width_window, height_window, speed_tank);
+    Tank* tank = new Tank(m_config);
     Bullet* bullet = new Bullet;
 
     m_objects.push_back(text);
     m_objects.push_back(tank);
     m_objects.push_back(bullet);
 
-    while (window.isOpen())
+    while (m_config->m_window->isOpen())
     {
         using namespace std::chrono_literals;
         auto start = std::chrono::high_resolution_clock::now();
 
         sf::Event event;
-        window.pollEvent(event);
+        m_config->m_window->pollEvent(event);
 
         calculate(event);
         rendering();
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> elapsed = end - start;
-        std::this_thread::sleep_for(40ms - elapsed);
+        std::this_thread::sleep_for(2ms - elapsed);
 
         if (event.type == sf::Event::Closed)
-            window.close();
+            m_config->m_window->close();
     }
 }
