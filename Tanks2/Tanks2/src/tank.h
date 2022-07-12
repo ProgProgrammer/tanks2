@@ -18,7 +18,7 @@ private:
     sf::Sprite m_sprite;
 
 public:
-    Tank(Config* m_config);
+    Tank(Config* config);
     void calculate(sf::Event& event) override;
     void draw() override;
 };
