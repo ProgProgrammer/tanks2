@@ -1,6 +1,6 @@
 #include "tank.h"
 
-Tank::Tank(Config* config) : m_config(config)
+Tank::Tank(Config* config, sf::RenderWindow* window) : m_config(config), m_window(window)
 {
     if (!m_image.loadFromFile("images/tank.png"))
     {
@@ -9,8 +9,8 @@ Tank::Tank(Config* config) : m_config(config)
     else
     {
         sf::Vector2u size = m_image.getSize();
-        m_tank_width = 50;
-        m_tank_height = 50;
+        m_tank_width = 75;
+        m_tank_height = 75;
         m_speed_tank = 1;
         float kx = m_tank_width / size.x;
         float ky = m_tank_height / size.y;
@@ -57,12 +57,12 @@ void Tank::calculate(sf::Event& event)
 
 void Tank::draw()
 {
-    m_config->m_window->draw(m_sprite);
+    m_window->draw(m_sprite);
 
     sf::CircleShape shape(2);
     shape.setFillColor(sf::Color(100, 250, 50));
     shape.setPosition(m_x_position - 1, m_y_position - 1);
-    m_config->m_window->draw(shape);
+    m_window->draw(shape);
 
     sf::RectangleShape rectangle;
     rectangle.setSize(sf::Vector2f(m_tank_width, m_tank_height));
@@ -70,5 +70,5 @@ void Tank::draw()
     rectangle.setFillColor(sf::Color::Transparent);
     rectangle.setOrigin(m_tank_width / 2, m_tank_height / 2);
     rectangle.setPosition(m_x_position, m_y_position);
-    m_config->m_window->draw(rectangle);
+    m_window->draw(rectangle);
 }

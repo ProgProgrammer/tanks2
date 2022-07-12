@@ -3,7 +3,7 @@
 #include <string>
 #include <thread>
 
-std::vector<Brick*> createBricks(Config* m_config, const Level& level)
+std::vector<Brick*> createBricks(Config* m_config, const Level& level, sf::RenderWindow* window)
 {
     std::vector<Brick*> bricks;
     int dx;
@@ -18,7 +18,7 @@ std::vector<Brick*> createBricks(Config* m_config, const Level& level)
             const auto& cube = line[pos_x];
             dx = m_config->m_dx * (pos_x + 1);
             dy = m_config->m_dy * (pos_y + 1);
-            bricks.push_back(new Brick(dx, dy, cube, m_config));
+            bricks.push_back(new Brick(dx, dy, cube, m_config, window));
         }
     }
 
@@ -27,12 +27,12 @@ std::vector<Brick*> createBricks(Config* m_config, const Level& level)
 
 World::World()
 {
-    int x = 20;
-    int y = 20;
+    int x = 60;
+    int y = 60;
     int width_window = 1200;
     int height_window = 600;
-    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(width_window, height_window), "TestProgram");
-    m_config = new Config(x, y, width_window, height_window, window);
+    m_window = new sf::RenderWindow(sf::VideoMode(width_window, height_window), "TestProgram");
+    m_config = new Config(x, y, width_window, height_window);
 
     LevelGenerator levelgenerator;
     levelgenerator.readLevelsFromFile("levels.txt");
@@ -48,7 +48,7 @@ World::World()
         std::cout << error.what() << "\n";
     }
 
-    m_bricks = createBricks(m_config, level);
+    m_bricks = createBricks(m_config, level, m_window);
 }
 
 World::~World()
@@ -63,7 +63,7 @@ World::~World()
         delete brickPtr;
     }
 
-    delete m_config->m_window;
+    delete m_window;
     delete m_config;
 }
 
@@ -85,7 +85,7 @@ void World::calculate(sf::Event& event)
 
 void World::rendering()
 {
-    m_config->m_window->clear();
+    m_window->clear();
 
     for (auto brickPtr : m_bricks)
     {
@@ -97,7 +97,7 @@ void World::rendering()
         objectPtr->draw();
     }
 
-    m_config->m_window->display();
+    m_window->display();
 }
 
 void World::startLoop()
@@ -105,20 +105,20 @@ void World::startLoop()
     sf::Clock clock;
 
     Text* text = new Text;
-    Tank* tank = new Tank(m_config);
+    Tank* tank = new Tank(m_config, m_window);
     Bullet* bullet = new Bullet;
 
     m_objects.push_back(text);
     m_objects.push_back(tank);
     m_objects.push_back(bullet);
 
-    while (m_config->m_window->isOpen())
+    while (m_window->isOpen())
     {
         using namespace std::chrono_literals;
         auto start = std::chrono::high_resolution_clock::now();
 
         sf::Event event;
-        m_config->m_window->pollEvent(event);
+        m_window->pollEvent(event);
 
         calculate(event);
         rendering();
@@ -128,6 +128,6 @@ void World::startLoop()
         std::this_thread::sleep_for(2ms - elapsed);
 
         if (event.type == sf::Event::Closed)
-            m_config->m_window->close();
+            m_window->close();
     }
 }

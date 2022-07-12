@@ -9,6 +9,7 @@ class Brick : public IDrawable
     const int m_dy;
     const char m_cube;
     const Config* m_config;
+    sf::RenderWindow* m_window;
     sf::Color m_emptyPlace = sf::Color(0, 0, 0);
     std::vector<sf::Color> m_colors = {sf::Color(192, 192, 192), sf::Color(128, 0, 0),    sf::Color(165, 42, 42),
                                        sf::Color(160, 82, 45),   sf::Color(139, 69, 19),  sf::Color(210, 105, 30),
@@ -16,7 +17,7 @@ class Brick : public IDrawable
                                        sf::Color(244, 164, 96)};
 
   public:
-    Brick(const int& x, const int& y, const char& ch, const Config* conf);
+    Brick(const int& x, const int& y, const char& ch, const Config* conf, sf::RenderWindow* window);
     void calculate(sf::Event& event) override;
     void draw() override;
 };
