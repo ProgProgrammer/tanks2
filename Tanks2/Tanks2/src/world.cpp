@@ -69,17 +69,14 @@ World::~World()
 
 void World::calculate(sf::Event& event)
 {
-    if (true)
+    for (auto objectPtr : m_objects)
     {
-        for (auto objectPtr : m_objects)
-        {
-            objectPtr->calculate(event);
-        }
+        objectPtr->calculate(event);
+    }
 
-        for (auto brickPtr : m_bricks)
-        {
-            brickPtr->calculate(event);
-        }
+    for (auto brickPtr : m_bricks)
+    {
+        brickPtr->calculate(event);
     }
 }
 
