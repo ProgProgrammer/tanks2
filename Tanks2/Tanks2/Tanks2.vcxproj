@@ -155,7 +155,7 @@
     <ClInclude Include="src\levelgenerator.h" />
     <ClInclude Include="src\brick.h" />
     <ClInclude Include="src\bullet.h" />
-    <ClInclude Include="src\iDrawable.h" />
+    <ClInclude Include="src\i_drawable.h" />
     <ClInclude Include="src\tank.h" />
     <ClInclude Include="src\text.h" />
     <ClInclude Include="src\utils.h" />
