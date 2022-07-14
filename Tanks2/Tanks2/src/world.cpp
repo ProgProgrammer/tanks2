@@ -69,7 +69,7 @@ World::~World()
 
 void World::calculate(sf::Event& event)
 {
-    if (event.type == sf::Event::KeyPressed)
+    if (true)
     {
         for (auto objectPtr : m_objects)
         {
