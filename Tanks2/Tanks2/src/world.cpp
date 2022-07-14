@@ -125,7 +125,7 @@ void World::startLoop()
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> elapsed = end - start;
-        std::this_thread::sleep_for(40ms - elapsed);  // TODO 40ms to config
+        std::this_thread::sleep_for(40ms - elapsed); // TODO 40ms to config
 
         if (event.type == sf::Event::Closed)
             m_window->close();

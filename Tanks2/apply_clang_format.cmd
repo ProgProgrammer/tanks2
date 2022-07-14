@@ -1,1 +1,1 @@
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\Llvm\bin\clang-format.exe" -i *.cpp *.h
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\Llvm\bin\clang-format.exe" -i .\Tanks2\src\*.cpp .\Tanks2\src\*.h
