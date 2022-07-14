@@ -1,10 +1,11 @@
 #pragma once
-#include <iostream>
+#include "config.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class IDrawable
 {
-public:
+  public:
     virtual void calculate(sf::Event& event) = 0;
     virtual void draw() = 0;
 };

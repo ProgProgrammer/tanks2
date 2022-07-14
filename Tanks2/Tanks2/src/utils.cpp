@@ -1,5 +1,5 @@
-#include <random>
 #include "utils.h"
+#include <random>
 
 int getRandomInt(const int min, const int& max)
 {

@@ -1,9 +1,9 @@
 #pragma once
-#include "iDrawable.h"
+#include "i_drawable.h"
 
 class Text : public IDrawable
 {
-public:
+  public:
     void calculate(sf::Event& event) override;
     void draw() override;
 };

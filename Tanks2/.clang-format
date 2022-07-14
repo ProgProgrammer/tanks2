@@ -1,0 +1,15 @@
+---
+BasedOnStyle: Microsoft
+
+AlignConsecutiveDeclarations: false
+AlignConsecutiveMacros: true
+AlignTrailingComments: true
+ColumnLimit: 120
+PointerAlignment: Left
+EmptyLineBeforeAccessModifier: LogicalBlock
+IndentWidth: 4
+MaxEmptyLinesToKeep: 1
+NamespaceIndentation: None
+SpacesInLineCommentPrefix:
+  Minimum: 1
+UseTab: Never

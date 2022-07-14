@@ -1,11 +1,9 @@
-#include <chrono>
-#include <thread>
-#include <string>
 #include "world.h"
+#include <chrono>
+#include <string>
+#include <thread>
 
-sf::RenderWindow window(sf::VideoMode(400, 200), "TestProgram");
-
-std::vector<Brick*> createBricks(Config* config, const Level& level)
+std::vector<Brick*> createBricks(Config* m_config, const Level& level, sf::RenderWindow* window)
 {
     std::vector<Brick*> bricks;
     int dx;
@@ -18,9 +16,9 @@ std::vector<Brick*> createBricks(Config* config, const Level& level)
         for (int pos_x = 0; pos_x < line.size(); pos_x++)
         {
             const auto& cube = line[pos_x];
-            dx = config->m_dx * (pos_x + 1);
-            dy = config->m_dy * (pos_y + 1);
-            bricks.push_back(new Brick(dx, dy, cube, window, config));
+            dx = m_config->m_dx * (pos_x + 1);
+            dy = m_config->m_dy * (pos_y + 1);
+            bricks.push_back(new Brick(dx, dy, cube, m_config, window));
         }
     }
 
@@ -29,9 +27,12 @@ std::vector<Brick*> createBricks(Config* config, const Level& level)
 
 World::World()
 {
-    int x = 20;
-    int y = 20;
-    m_config = new Config(x, y);
+    int x = 60;
+    int y = 60;
+    int width_window = 1200;
+    int height_window = 600;
+    m_window = new sf::RenderWindow(sf::VideoMode(width_window, height_window), "TestProgram");
+    m_config = new Config(x, y, width_window, height_window);
 
     LevelGenerator levelgenerator;
     levelgenerator.readLevelsFromFile("levels.txt");
@@ -47,7 +48,7 @@ World::World()
         std::cout << error.what() << "\n";
     }
 
-    m_bricks = createBricks(m_config, level);
+    m_bricks = createBricks(m_config, level, m_window);
 }
 
 World::~World()
@@ -62,6 +63,7 @@ World::~World()
         delete brickPtr;
     }
 
+    delete m_window;
     delete m_config;
 }
 
@@ -83,17 +85,19 @@ void World::calculate(sf::Event& event)
 
 void World::rendering()
 {
-    for (auto objectPtr : m_objects)
-    {
-        objectPtr->draw();
-    }
+    m_window->clear();
 
     for (auto brickPtr : m_bricks)
     {
         brickPtr->draw();
     }
 
-    window.display();
+    for (auto objectPtr : m_objects)
+    {
+        objectPtr->draw();
+    }
+
+    m_window->display();
 }
 
 void World::startLoop()
@@ -101,29 +105,29 @@ void World::startLoop()
     sf::Clock clock;
 
     Text* text = new Text;
-    Tank* tank = new Tank;
+    Tank* tank = new Tank(m_config, m_window);
     Bullet* bullet = new Bullet;
 
     m_objects.push_back(text);
     m_objects.push_back(tank);
     m_objects.push_back(bullet);
 
-    while (window.isOpen())
+    while (m_window->isOpen())
     {
         using namespace std::chrono_literals;
         auto start = std::chrono::high_resolution_clock::now();
 
         sf::Event event;
-        window.pollEvent(event);
+        m_window->pollEvent(event);
 
         calculate(event);
         rendering();
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> elapsed = end - start;
-        std::this_thread::sleep_for(40ms - elapsed);
+        std::this_thread::sleep_for(40ms - elapsed);  // TODO 40ms to config
 
         if (event.type == sf::Event::Closed)
-            window.close();
+            m_window->close();
     }
 }
