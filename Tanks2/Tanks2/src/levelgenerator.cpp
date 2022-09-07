@@ -3,6 +3,11 @@
 #include <iostream>
 #include <string>
 
+int LevelGenerator::numLevels() const
+{
+    return m_levels.size();
+}
+
 Level LevelGenerator::getLevel(int& num_level) const
 {
     if (num_level < m_levels.size())

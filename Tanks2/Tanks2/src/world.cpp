@@ -40,7 +40,8 @@ World::World()
 
     try
     {
-        int num_level = 1;
+        int num_levels = levelgenerator.numLevels();
+        int num_level = getRandomInt(0, num_levels - 1);
         level = levelgenerator.getLevel(num_level);
     }
     catch (std::runtime_error& error)
